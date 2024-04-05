@@ -66,10 +66,10 @@ initialize:
       method: LandUsage
       global-config:
         input-parameters: ['energy']
-      energy-sources:
-        solar: 50
-        wind: 20
-        gas: 30
+        energy-sources:
+          solar: 50
+          wind: 20
+          gas: 30
 tree:
   children:
     child:
