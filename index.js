@@ -8,7 +8,7 @@ const LandUsage = (globalConfig) => {
 
   const execute = async (inputs, config) => {
 
-    let inputParamaters = ['cpu/energy'];
+    let inputParamaters = ['energy'];
     if (config) {
       inputParamaters = config['input-paramaters'] | inputParamaters;
     }

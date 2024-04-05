@@ -11,7 +11,7 @@ This plugin for the GSF Impact Framework takes kWh values and translates them to
 Optional fields:
 
 - `input-parameters`: A list of parameters containing kWh values to compute total land usage.
- By default `'cpu/energy'` parameter is used.
+ By default `'energy'` parameter is used.
 
 ## Inputs
 
@@ -31,7 +31,7 @@ import {LandUsage} from './land-usage';
 const landUsage = LandUsage();
 const result = await landUsage.execute([
   {
-    'cpu/energy': 0.024343,
+    'energy': 0.024343,
   },
 ]);
 ```
@@ -41,7 +41,7 @@ const result = await landUsage.execute([
 IF users will typically call the plugin as part of a pipeline defined in a `manifest`
 file. In this case, instantiating the plugin is handled by
 `ie` and does not have to be done explicitly by the user.
-The following is an example `manifest` that calls `csv-export.yml`:
+The following is an example `manifest` that calls 'land-usage'`:
 
 ```yaml
 name: land-usage-demo
@@ -65,7 +65,7 @@ tree:
           energy: 2.9
 ```
 
-You can run this example `manifest` by saving it as `./examples/manifests/test/csv-export.yml` and executing the following command from the project root:
+You can run this example `manifest` by saving it as `./examples/manifests/test/land-usage.yml` and executing the following command from the project root:
 
 ```sh
 npm i -g @grnsft/if
