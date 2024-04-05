@@ -1,10 +1,12 @@
-const LandUsage = (globalConfig) => {
+const electricityMaps = require('./electricityMaps');
+
+const LandUsage = async (globalConfig) => {
 
   const metadata = {
     kind: 'execute',
   };
 
-  // land use intensity for 
+
   const landUseIntensityBySource = {
     gas: 0.001,
     coal: 0.015,
@@ -31,8 +33,8 @@ const LandUsage = (globalConfig) => {
       const percentage = value / totalEnergyMix;
 
       // get the land use intensity
-      const landUseIntensityModifier = landUseIntensityBySource[key] ? landUseIntensityBySource[key] : landUseIntensityBySource[other];
-      totalLandUseIntensity += percentage * landUseIntensityBySource[key];
+      const landUseIntensityModifier = !!landUseIntensityBySource[key] ? landUseIntensityBySource[key] : landUseIntensityBySource['other'];
+      totalLandUseIntensity += percentage * landUseIntensityModifier;
     });
 
     // return average land use intensity per kWh
@@ -45,7 +47,12 @@ const LandUsage = (globalConfig) => {
 
   if (globalConfig) {
     globalInputParameters = globalConfig['input-parameters'] ? globalConfig['input-parameters'] : globalInputParameters;
-    landUseIntensity = globalConfig'energy-sources'] ? calculateLandUseIntensity(globalConfig['energy-sources']) : landUseIntensity;
+    if (!globalConfig['use-electicity-maps']) {
+      landUseIntensity = globalConfig['energy-sources'] ? calculateLandUseIntensity(globalConfig['energy-sources']) : landUseIntensity;
+    } else {
+      const liveGridMix = await electricityMap.latest(globalConfig['electicity-maps-zone']);
+      landUseIntensity = calculateLandUseIntensity(liveGridMix);
+    }
   }
 
   const execute = async (inputs, config) => {
@@ -53,7 +60,7 @@ const LandUsage = (globalConfig) => {
     let inputParameters = globalInputParameters;
     if (config) {
       inputParameters = config['input-parameters'] ? config['input-parameters'] : inputParameters;
-      landUseIntensity = config'energy-sources'] ? calculateLandUseIntensity(config['energy-sources']) : landUseIntensity;
+      landUseIntensity = config['energy-sources'] ? calculateLandUseIntensity(config['energy-sources']) : landUseIntensity;
     }
 
     return inputs.map(input => {

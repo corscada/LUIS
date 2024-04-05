@@ -12,6 +12,17 @@ Optional fields:
 
 - `input-parameters`: A list of parameters containing kWh values to compute total land usage.
  By default `'energy'` parameter is used.
+- `energy-sources`: Takes a list of kWh or percentage values describing the energy grid mix. See example manifest below. The following are accepted sources:
+  - gas
+  - coal
+  - nuclear
+  - hydro
+  - solar
+  - wind
+  - other
+  Note that all sources that are not named will be included in other, which uses the average land use intensity score of the other sources for it's calculations. This will have greater impact on estimation of grid mixes using highter amounts of 'other' energy sources.
+- `use-electicity-maps`: Uses Electricity Maps API as data source for grid mix. Valid values include `latest`. See [Electricity Maps API docs](https://static.electricitymaps.com/api/docs/index.html).
+- `electicity-maps-zone`: If using Electricity Map, zones can be specified. See [Electricity Map API zone docs](https://static.electricitymaps.com/api/docs/index.html#zones).
 
 ## Inputs
 
@@ -54,6 +65,10 @@ initialize:
       method: LandUsage
       global-config:
         input-parameters: ['energy']
+      energy-sources:
+        solar: 50
+        wind: 20
+        gas: 30
 tree:
   children:
     child:
