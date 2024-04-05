@@ -1,15 +1,83 @@
 # land-usage
 
-To install dependencies:
+Want to discover the land use intensity (LUI) of your software?
 
-```bash
-bun install
+This plugin for the GSF Impact Framework takes kWh values and translates them to m2 land used based on the grid energy mix.
+
+# Parameters
+
+## Plugin config
+
+Optional fields:
+
+- `input-parameters`: A list of parameters containing kWh values to compute total land usage.
+ By default `'cpu/energy'` parameter is used.
+
+## Inputs
+
+Any numerical value representing kWh.
+
+## Outputs
+
+An estimated LUI in m<sup>2</sup>.
+
+## Implementation
+
+To run the plugin, you must first create an instance of `LandUsage` and call its `execute()` function to return `land-usage`
+
+```typescript
+import {LandUsage} from './land-usage';
+
+const landUsage = LandUsage();
+const result = await landUsage.execute([
+  {
+    'cpu/energy': 0.024343,
+  },
+]);
 ```
 
-To run:
+## Example manifest
 
-```bash
-bun run index.js
+IF users will typically call the plugin as part of a pipeline defined in a `manifest`
+file. In this case, instantiating the plugin is handled by
+`ie` and does not have to be done explicitly by the user.
+The following is an example `manifest` that calls `csv-export.yml`:
+
+```yaml
+name: land-usage-demo
+description: example calculating LUI
+tags:
+initialize:
+  plugins:
+    land-usage:
+      path: 'land-usage'
+      method: LandUsage
+      global-config:
+        input-parameters: ['energy']
+tree:
+  children:
+    child:
+        - land-usage
+      inputs:
+        - timestamp: 2023-07-06T00:00
+          energy: 3.5
+        - timestamp: 2023-07-06T00:10
+          energy: 2.9
 ```
 
-This project was created using `bun init` in bun v1.0.13. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+You can run this example `manifest` by saving it as `./examples/manifests/test/csv-export.yml` and executing the following command from the project root:
+
+```sh
+npm i -g @grnsft/if
+npm i -g @grnsft/if-plugins
+
+git clone https://github.com/corscada/land-usage
+cd land-usage
+npm link
+cd ..
+npm link land-usage
+
+ie --manifest ./examples/manifests/test/csv-export.yml.yml --output ./examples/outputs/csv-export.yml.yml
+```
+
+The results will be saved into the `output-path`.
