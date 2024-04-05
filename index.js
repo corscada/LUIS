@@ -4,13 +4,18 @@ const LandUsage = (globalConfig) => {
     kind: 'execute',
   };
 
-  const landUse = 0.0000018330936073059; //global average defualt
+  const landUseMultiplier = 0.01036; // defualt global average
 
   const execute = async (inputs, config) => {
 
+    let inputParamaters = ['cpu/energy'];
+    if (config) {
+      inputParamaters = config['input-paramaters'] | inputParamaters;
+    }
+
     return inputs.map(input => {
-      const energy = input['cpu/energy'];
-      const outputValue = energy * landUse;
+      const energy = inputParamaters.reduce((a, b) => a + input[b], 0);
+      const outputValue = energy * landUseMultiplier;
 
       return {
         ...input,
