@@ -22,8 +22,8 @@ Optional fields:
   - solar
   - wind
   - other*
-- `use-electicity-maps`: Uses Electricity Maps API as data source for grid mix. Valid values include `latest`. See [Electricity Maps API docs](https://static.electricitymaps.com/api/docs/index.html).
-- `electicity-maps-zone`: If using Electricity Maps, zones can be specified. See [Electricity Map API zone docs](https://static.electricitymaps.com/api/docs/index.html#zones).
+- `use-electicity-maps`: Uses Electricity Maps API as data source for grid mix. Requires free API key. Valid values include `latest`. See [Electricity Maps API docs](https://static.electricitymaps.com/api/docs/index.html).
+- `electicity-maps-zone`: If using Electricity Map, zones can be specified. See [Electricity Map API zone docs](https://static.electricitymaps.com/api/docs/index.html#zones).
 
 \* Note that all sources that are not named will be included in other, which uses the average land use intensity score of the other sources for it's calculations. This will have greater impact on estimation of grid mixes using highter amounts of 'other' energy sources.
 
@@ -41,7 +41,7 @@ Energy used for the operating of Software x Land Use Intensity of Energy (LUIE) 
 ```
 ### Land Use Intensity of Energy (LUIE)
 
-Land Use Intensity of Energy (LUIE) is the area of land that needs to be used for a year to produce 1kWh of energy (m2/kWh/y). To calculate LUIE we consider the Land Use Intensity of different energy sources (e.g. coal power, solar photovoltaics, etc.) and the mix of these energy sources in the grid. 
+Land Use Intensity of Energy (LUIE) is the area of land that needs to be used for a year to produce 1kWh of energy (m2/kWh/y). To calculate LUIE we consider the Land Use Intensity of different energy sources (e.g. coal power, solar photovoltaics, etc.) and the mix of these energy sources in the grid.
 
 #### Land use intensity of energy sources
 
@@ -54,7 +54,7 @@ Land Use Intensity of Energy (LUIE) is the area of land that needs to be used fo
 | Solar         | 0.012    |
 | Wind          | 0.0013   |
 
-Sources: 
+Sources:
 - [UNECE (2022). Integrated Life-cycle Assessment
 of Electricity Sources.](https://unece.org/sites/default/files/2022-04/LCA_3_FINAL%20March%202022.pdf)
 - [Jessica Lovering, Marian Swain, Linus Blomqvist,Rebecca R. Hernandez (2022). Land-use intensity of electricity production and tomorrow’s energy landscape](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0270155#sec004)
@@ -138,7 +138,7 @@ npm link
 cd ..
 npm link land-usage
 
-ie --manifest ./examples/manifests/test/csv-export.yml.yml --output ./examples/outputs/csv-export.yml.yml
+ie --manifest ./examples/manifests/test/land-usage.yml --output ./examples/outputs/land-usage.yml
 ```
 
 The results will be saved into the `output-path`.

@@ -7,6 +7,7 @@ const LandUsage = async (globalConfig) => {
   };
 
 
+  // data from https://unece.org/sites/default/files/2022-04/LCA_3_FINAL March 2022.pdf
   const landUseIntensityBySource = {
     gas: 0.001,
     coal: 0.015,
@@ -17,11 +18,15 @@ const LandUsage = async (globalConfig) => {
     other: 0.00885 // no data: average of above
   }
 
+  // global settings
+  let inputParameters = ['energy'];
+  let landUseIntensityModifier = 0.01036; // default global average
+
   /**
    * Calculates the average LUI in m2 per kWh based on energy mix as % or kWh.
    */
   const calculateLandUseIntensity = (energySources) => {
-    if (!energySources) return 0;
+    if (!energySources) return landUseIntensityModifier;
     let sourcesMap = new Map(Object.entries(energySources));
 
     // get total energy
@@ -41,33 +46,32 @@ const LandUsage = async (globalConfig) => {
     return totalLandUseIntensity / sourcesMap.size;
   };
 
-  // global settings
-  let globalInputParameters = ['energy'];
-  let landUseIntensity = 0.01036; // defualt global average
-
   if (globalConfig) {
-    globalInputParameters = globalConfig['input-parameters'] ? globalConfig['input-parameters'] : globalInputParameters;
-    if (!globalConfig['use-electicity-maps']) {
-      landUseIntensity = globalConfig['energy-sources'] ? calculateLandUseIntensity(globalConfig['energy-sources']) : landUseIntensity;
+    // override default global settings
+    if (globalConfig['input-parameters']){
+      inputParameters = globalConfig['input-parameters'];
+    }
+
+    if (globalConfig['use-electicity-maps']) {
+      const liveGridMix = await electricityMaps.latest(globalConfig['electicity-maps-zone']);
+      landUseIntensityModifier = calculateLandUseIntensity(liveGridMix);
     } else {
-      const liveGridMix = await electricityMap.latest(globalConfig['electicity-maps-zone']);
-      landUseIntensity = calculateLandUseIntensity(liveGridMix);
+      landUseIntensityModifier = calculateLandUseIntensity(globalConfig['energy-sources']);
     }
   }
 
   const execute = async (inputs, config) => {
     // override global settings
-    let inputParameters = globalInputParameters;
     if (config) {
-      inputParameters = config['input-parameters'] ? config['input-parameters'] : inputParameters;
-      landUseIntensity = config['energy-sources'] ? calculateLandUseIntensity(config['energy-sources']) : landUseIntensity;
+      inputParameters = !!config['input-parameters'] ? config['input-parameters'] : inputParameters;
+      landUseIntensityModifier = calculateLandUseIntensity(config['energy-sources']);
     }
 
     return inputs.map(input => {
       // sum of each input parameter in kWh
       const totalEnergy = inputParameters.reduce((a, b) => a + input[b], 0);
-      // kWh * m2 per kWh == land usage intensity over a year
-      const outputValue = totalEnergy * landUseIntensity;
+      // kWh * m2 per kWh/y == land usage intensity over a year
+      const outputValue = totalEnergy * landUseIntensityModifier;
 
       return {
         ...input,
