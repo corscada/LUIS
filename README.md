@@ -8,7 +8,7 @@ Based on the energy used to operate your software, and the mix of energy sources
 
 ## Parameters
 
-### Plugin config
+### Plugin global config
 
 Optional fields:
 
@@ -27,11 +27,16 @@ Optional fields:
 
 \* Note that all sources that are not named will be included in other, which uses the average land use intensity score of the other sources for it's calculations. This will have greater impact on estimation of grid mixes using highter amounts of 'other' energy sources.
 
+### Inputs
+
+The energy used to operate your software in kWh.
+
 ## Returns
 
 Estimated Land Use Intensity of your software in m<sup>2</sup>/y.
 
 ## Calculation
+`Energy used for the operating of Software x Land Use Intensity of Energy (LUIE) = Land Use Intensity of Software (LUIS)`
 
 ## Implementation
 
