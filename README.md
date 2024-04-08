@@ -4,9 +4,9 @@ Want to discover the land use intensity of your software?
 
 This plugin for the GSF Impact Framework takes kWh values and translates them to m2 land used per year based on the grid energy mix.
 
-# Parameters
+## Parameters
 
-## Plugin config
+### Plugin config
 
 Optional fields:
 
@@ -25,13 +25,11 @@ Optional fields:
 
 \* Note that all sources that are not named will be included in other, which uses the average land use intensity score of the other sources for it's calculations. This will have greater impact on estimation of grid mixes using highter amounts of 'other' energy sources.
 
-## Inputs
-
-Energy used for the operating of your software. Any numerical value representing kWh.
-
-## Outputs
+## Returns
 
 Estimated Land Use Intensity of your software in m<sup>2</sup>/y.
+
+## Calculation
 
 ## Implementation
 
