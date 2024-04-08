@@ -1,8 +1,10 @@
 # Land Use Intensity of Software (LUIS)
 
-Want to discover the land use intensity of your software?
+`LUIS` estimates the Land Use Intensity of your software.
 
-This plugin for the GSF Impact Framework takes kWh values and translates them to m2 land used per year based on the grid energy mix.
+Energy technologies, for example, solar photovoltaics, coal power, and hydropower, can use huge amounts of land throughout their lifecycle.
+
+Based on the energy used to operate your software, and the mix of energy sources in the grid, this plugin estimates the area of land that needs to be used for a year to produce the energy needed by your software (m2/y).
 
 ## Parameters
 
