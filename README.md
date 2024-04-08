@@ -27,11 +27,11 @@ Optional fields:
 
 ## Inputs
 
-Any numerical value representing kWh.
+Energy used for the operating of your software. Any numerical value representing kWh.
 
 ## Outputs
 
-An estimated LUI in m<sup>2</sup>.
+Estimated Land Use Intensity of your software in m<sup>2</sup>/y.
 
 ## Implementation
 
