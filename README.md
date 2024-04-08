@@ -1,8 +1,8 @@
-# land-usage
+# Land Use Intensity of Software (LUIS)
 
-Want to discover the land use intensity (LUI) of your software?
+Want to discover the land use intensity of your software?
 
-This plugin for the GSF Impact Framework takes kWh values and translates them to m2 land used based on the grid energy mix.
+This plugin for the GSF Impact Framework takes kWh values and translates them to m2 land used per year based on the grid energy mix.
 
 # Parameters
 
