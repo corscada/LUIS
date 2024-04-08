@@ -39,10 +39,11 @@ Estimated Land Use Intensity of your software in m<sup>2</sup>/y.
 ```pseudocode
 Energy used for the operating of Software x Land Use Intensity of Energy (LUIE) = Land Use Intensity of Software (LUIS)
 ```
+### Land Use Intensity of Energy (LUIE)
 
 Land Use Intensity of Energy (LUIE) is the area of land that needs to be used for a year to produce 1kWh of energy (m2/kWh/y). To calculate LUIE we consider the Land Use Intensity of different energy sources (e.g. coal power, solar photovoltaics, etc.) and the mix of these energy sources in the grid. 
 
-### Land use intensity of energy sources
+#### Land use intensity of energy sources
 
 | Energy Source | LUI      |
 |---------------|----------|
@@ -58,7 +59,7 @@ Sources:
 of Electricity Sources.](https://unece.org/sites/default/files/2022-04/LCA_3_FINAL%20March%202022.pdf)
 - [Jessica Lovering, Marian Swain, Linus Blomqvist,Rebecca R. Hernandez (2022). Land-use intensity of electricity production and tomorrow’s energy landscape](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0270155#sec004)
 
-### Global Energy Mix
+#### Global Energy Mix
 If you do not specify a custom energy mix, or use electricity maps, by default, we use the global energy mix.
 
 | Energy Source | Percentage of global energy |
@@ -70,6 +71,8 @@ If you do not specify a custom energy mix, or use electricity maps, by default, 
 | Solar         | 4.57                        |
 | Wind          | 7.32                        |
 | Other         | 3.49                        |
+
+With this energy mix, we calculate that average global LUIE is `0.01036` m<sup>2</sup>/kWh/y.
 
 Source:
 - [Energy Institute- Statistical Review of World Energy (2023)](https://www.energyinst.org/statistical-review)
