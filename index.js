@@ -6,7 +6,6 @@ const LandUsage = async (globalConfig) => {
     kind: 'execute',
   };
 
-
   // data from https://unece.org/sites/default/files/2022-04/LCA_3_FINAL March 2022.pdf
   const landUseIntensityBySource = {
     gas: 0.001,
