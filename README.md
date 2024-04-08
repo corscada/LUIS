@@ -36,7 +36,9 @@ The energy used to operate your software in kWh.
 Estimated Land Use Intensity of your software in m<sup>2</sup>/y.
 
 ## Calculation
-`Energy used for the operating of Software x Land Use Intensity of Energy (LUIE) = Land Use Intensity of Software (LUIS)`
+```pseudocode
+Energy used for the operating of Software x Land Use Intensity of Energy (LUIE) = Land Use Intensity of Software (LUIS)
+```
 
 ## Implementation
 
